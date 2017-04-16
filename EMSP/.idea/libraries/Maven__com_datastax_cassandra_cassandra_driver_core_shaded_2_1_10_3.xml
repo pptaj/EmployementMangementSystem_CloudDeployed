@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.datastax.cassandra:cassandra-driver-core:shaded:2.1.10.3">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/datastax/cassandra/cassandra-driver-core/2.1.10.3/cassandra-driver-core-2.1.10.3-shaded.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/datastax/cassandra/cassandra-driver-core/2.1.10.3/cassandra-driver-core-2.1.10.3-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/datastax/cassandra/cassandra-driver-core/2.1.10.3/cassandra-driver-core-2.1.10.3-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

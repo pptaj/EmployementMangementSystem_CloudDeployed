@@ -1,0 +1,45 @@
+language: java
+jdk:
+- oraclejdk8
+sudo: false
+install: true
+script: mvn package
+after_success:
+- mkdir codedeploy
+- zip -r EMSP.zip ./EMSP/target/trial-1.0.0-BUILD-SNAPSHOT.war appspec.yml restartTomcat.sh
+- ls -al
+- mv EMSP.zip codedeploy/
+- ls -al
+- pwd
+- cd codedeploy
+- ls -al
+- pwd
+before_deploy:
+- cd ..
+deploy:
+  - provider: s3
+    access_key_id: AKIAJR2WHPL7RXPK5NYA
+    secret_access_key:
+        secure: pLpBhj71uxVqmXwtG5T/zxib6SQ3VEXkbDqTVqPOWziyNosKeuH1cfaz17rURO3AYPKh1fgE3rmy2SFOJSVC/kPbhoNSCNMCAXk8WUaTkr+nhBT8DgK7/TOdAPEMIkSYIFp/jSW1Qaho3JN1dYqfK+f97cHWACxL5d6Q2p03pmHb/RImq8BJtp15u5+JEy6swosQIesPSnhd1D7Cgyq+2HcCjeAZKmKCb3RKKmchPbY7y6djaWiJoCJnnFUvETkmcwkCZeOferXEHEpwkhyasjFIiET9tECsFaA3oUIkShj+motKSOMpHCcEp91r5Tth1iaNJBSh1O4XdC1cg4MO+aD7D0lWHB7uZrTAemx+ZIBLOozpj1WF17JupFTaex0386ABNZDlKycIhrRF9GH3uiTgrZuk4nUGxylnZTc5i24RH6vV0lnpaIX2WcQWFKyJfCPLvNq1od2JPaaar/G5Dilvt0WXQEkPWs9i6XyITKU3Yj1xelwJdETnXDvU/oYdRToqqdqt8QCL2RsZYO0YFUMEweQjgM2iKI0JgzN0FYlZp8O+pri0+SnxHRcvDUzQfBL7ukGzvUEv51IIuyafNhUF6NYP7SkPNN5JvQCDo9/Aq3UeHIqW7jMntBRvo+cEgvXY4msDt3ra4l5u/zAWFY4gNNII6haFXA+YtIxlIZQ=
+    local_dir: codedeploy
+    bucket: s3.neu-csye6225-spring17-team-8.site
+    region: us-east-1
+    skip_cleanup: true
+  - provider: codedeploy
+    access_key_id: AKIAJR2WHPL7RXPK5NYA
+    secret_access_key:
+        secure: pLpBhj71uxVqmXwtG5T/zxib6SQ3VEXkbDqTVqPOWziyNosKeuH1cfaz17rURO3AYPKh1fgE3rmy2SFOJSVC/kPbhoNSCNMCAXk8WUaTkr+nhBT8DgK7/TOdAPEMIkSYIFp/jSW1Qaho3JN1dYqfK+f97cHWACxL5d6Q2p03pmHb/RImq8BJtp15u5+JEy6swosQIesPSnhd1D7Cgyq+2HcCjeAZKmKCb3RKKmchPbY7y6djaWiJoCJnnFUvETkmcwkCZeOferXEHEpwkhyasjFIiET9tECsFaA3oUIkShj+motKSOMpHCcEp91r5Tth1iaNJBSh1O4XdC1cg4MO+aD7D0lWHB7uZrTAemx+ZIBLOozpj1WF17JupFTaex0386ABNZDlKycIhrRF9GH3uiTgrZuk4nUGxylnZTc5i24RH6vV0lnpaIX2WcQWFKyJfCPLvNq1od2JPaaar/G5Dilvt0WXQEkPWs9i6XyITKU3Yj1xelwJdETnXDvU/oYdRToqqdqt8QCL2RsZYO0YFUMEweQjgM2iKI0JgzN0FYlZp8O+pri0+SnxHRcvDUzQfBL7ukGzvUEv51IIuyafNhUF6NYP7SkPNN5JvQCDo9/Aq3UeHIqW7jMntBRvo+cEgvXY4msDt3ra4l5u/zAWFY4gNNII6haFXA+YtIxlIZQ=    
+    bucket: s3.neu-csye6225-spring17-team-8.site
+    key: EMSP.zip
+    bundle_type: zip
+    application: EMS
+    deployment_group: EMS
+    region: us-east-1
+    wait-until-deployed: true
+notifications:
+  email:
+    recipients:
+    - dsouza.chr@husky.neu.edu
+    - dsouza.le@husky.neu.edu
+    - palecanda.t@husky.neu.edu
+    - karthikeyan.v@husky.neu.edu
